@@ -6,6 +6,8 @@
 *_putchar - writing character c to stdout
 *@c: the charater to print
 */
+void print_buffer(char buffer[], int *buff_ind);
+int _printf(const char *format, ...)
 {
 va_list args;
 va_start(args, format);

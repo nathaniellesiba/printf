@@ -47,7 +47,7 @@ return count;
 int main(void)
 {
 int count;
-count = _printf("Hello, %s! The answer is %d%c.\n", "world", 42, '%');
+count = _printf("Hello, %s! The answer is %d%c.\n, world", 42, '%');
 printf("Number of characters printed: %d\n", count);
 return 0;
 }

@@ -19,4 +19,4 @@ if (size == 0)
 else
 *i = curr_i;
 return (size);
-}
+}}

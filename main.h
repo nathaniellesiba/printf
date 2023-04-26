@@ -15,10 +15,10 @@
 #define S_LONG 2
 #define S_SHORT 1
 /**
-*struct fmt - Struct op
-*@valid: the valid character
-*@fmt: The first format
-* @fn: The function associated
+* struct fmt - Struct op
+**
+@fmt: The format.
+* @fn: The function associated.
 */
 struct fmt
 {
@@ -26,27 +26,16 @@ char fmt;
 int (*fn)(va_list, char[], int, int, int, int);
 };
 /**
-*typedef struct fmt fmt_t - Struct op
-*
-*@fmt: The second format
-* @fm_t: The function associated
+* typedef struct fmt fmt_t - Struct op
+**
+@fmt: The format.
+* @fm_t: The function associated.
 */
 typedef struct fmt fmt_t;
-(char *valid;
-int(*f)(va_list);
-)
 int _printf(const char *format, ...);
 int handle_print(const char *fmt, int *i,
 va_list list, char buffer[], int flags, int width, int precision, int size);
-int print_c(va_list args);
-int print_s(va_list args);
-int print_d(va_list args);
-int print_i(va_list args);
-int _putchar(char c);
-int print_percent(va_list args);
-int (*get_func(char x))(va_list args)
-
-/******************FUNCTIONS******************/
+/****************** FUNCTIONS ******************/
 /* Funtions to print chars and strings */
 int print_char(va_list types, char buffer[],
 int flags, int width, int precision, int size);
@@ -54,7 +43,6 @@ int print_string(va_list types, char buffer[],
 int flags, int width, int precision, int size);
 int print_percent(va_list types, char buffer[],
 int flags, int width, int precision, int size);
-
 /* Functions to print numbers */
 int print_int(va_list types, char buffer[],
 int flags, int width, int precision, int size);
@@ -81,17 +69,6 @@ int get_flags(const char *format, int *i);
 int get_width(const char *format, int *i, va_list list);
 int get_precision(const char *format, int *i, va_list list);
 int get_size(const char *format, int *i);
-int print_binary(unsigned int n);
-int main(const char *format, ...)
-int main(void)
-{
-unsigned int num=42;
-custom_printf("the binary representation of %u is %b\n", num, num);
-return 0;
-};
-int print_u(unsigned int n, int base, int is_uppercase);
-int print_o(unsigned int n);
-int print_x(unsigned int n, int is_uppercase);
 /*Function to print string in reverse*/
 int print_reverse(va_list types, char buffer[],
 int flags, int width, int precision, int size);
@@ -117,4 +94,3 @@ int is_digit(char);
 long int convert_size_number(long int num, int size);
 long int convert_size_unsgnd(unsigned long int num, int size);
 #endif /* MAIN_H */
-

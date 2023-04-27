@@ -17,6 +17,24 @@ int flags, int width, int precision, int size)
 int i, unknow_len = 0, printed_chars = -1;
 fmt_t fmt_types[] = {
 {'c', print_char}, {'s', print_string}, {'%', print_percent},
+#include "main.h"
+/************************* WRITE HANDLE *************************/
+/**
+* handle_write_char - Prints a string
+* @c: char types.
+* @buffer: Buffer array to handle print
+* @flags: Calculates active flags.
+* @width: get width.
+* @precision: precision specifier
+* @size: Size specifier
+**
+Return: Number of chars printed.
+*/
+int handle_write_char(char c, char buffer[],
+int flags, int width, int precision, int size)
+{ /* char is stored at left and paddind at buffer's right */
+int i = 0;
+char padd = ' ';
 {'i', print_int}, {'d', print_int}, {'b', print_binary},
 {'u', print_unsigned}, {'o', print_octal}, {'x', print_hexadecimal},
 {'X', print_hexa_upper}, {'p', print_pointer}, {'S', print_non_printable},
@@ -41,8 +59,44 @@ if (fmt[*ind] == ' ')
 --(*ind);
 return (1);
 }
+#include "main.h"
+/************************* WRITE HANDLE *************************/
+/**
+* handle_write_char - Prints a string
+* @c: char types.
+* @buffer: Buffer array to handle print
+* @flags: Calculates active flags.
+* @width: get width.
+* @precision: precision specifier
+* @size: Size specifier
+**
+Return: Number of chars printed.
+*/
+int handle_write_char(char c, char buffer[],
+int flags, int width, int precision, int size)
+{ /* char is stored at left and paddind at buffer's right */
+int i = 0;
+char padd = ' ';
 unknow_len += write(1, &fmt[*ind], 1);
 return (unknow_len);
 }
 return (printed_chars);
 }
+#include "main.h"
+/************************* WRITE HANDLE *************************/
+/**
+* handle_write_char - Prints a string
+* @c: char types.
+* @buffer: Buffer array to handle print
+* @flags: Calculates active flags.
+* @width: get width.
+* @precision: precision specifier
+* @size: Size specifier
+**
+Return: Number of chars printed.
+*/
+int handle_write_char(char c, char buffer[],
+int flags, int width, int precision, int size)
+{ /* char is stored at left and paddind at buffer's right */
+int i = 0;
+char padd = ' ';

@@ -7,13 +7,31 @@
 */
 int get_flags(const char *format, int *i)
 {
+#include "main.h"
+/************************* WRITE HANDLE *************************/
+/**
+* handle_write_char - Prints a string
+* @c: char types.
+* @buffer: Buffer array to handle print
+* @flags: Calculates active flags.
+* @width: get width.
+* @precision: precision specifier
+* @size: Size specifier
+**
+Return: Number of chars printed.
+*/
+int handle_write_char(char c, char buffer[],
+int flags, int width, int precision, int size)
+{ /* char is stored at left and paddind at buffer's right */
+int i = 0;
+char padd = ' ';
 /* - + 0 # ' ' */
 /* 1 2 4 8 16 */
 int j, curr_i;
 int flags = 0;
 const char FLAGS_CH[] = {'-', '+', '0', '#', ' ', '\0'};
-const int FLAGS_ARR[] = {F_MINUS, F_PLUS, F_ZERO, F_HASH,
-F_SPACE, 0};
+const int FLAGS_ARR[] = {F_MINUS, F_PLUS, F_ZERO, F_HASH, F_SPACE,
+0};
 for (curr_i = *i + 1; format[curr_i] != '\0'; curr_i++)
 {
 for (j = 0; FLAGS_CH[j] != '\0'; j++)
@@ -28,3 +46,21 @@ break;
 *i = curr_i - 1;
 return (flags);
 }
+#include "main.h"
+/************************* WRITE HANDLE *************************/
+/**
+* handle_write_char - Prints a string
+* @c: char types.
+* @buffer: Buffer array to handle print
+* @flags: Calculates active flags.
+* @width: get width.
+* @precision: precision specifier
+* @size: Size specifier
+**
+Return: Number of chars printed.
+*/
+int handle_write_char(char c, char buffer[],
+int flags, int width, int precision, int size)
+{ /* char is stored at left and paddind at buffer's right */
+int i = 0;
+char padd = ' ';

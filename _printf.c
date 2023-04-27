@@ -1,128 +1,83 @@
 #include "main.h"
-void print_buffer(char buffer[], int *buff_ind);
+#include <stdlib.h>
+
 /**
-* _printf - Printf function
-* @format: format.
-* Return: Printed chars.
+* check_for_specifiers - checks if there is a valid format specifier
+* @format: possible format specifier
+*
+* Return: pointer to valid function or NULL
 */
-#include "main.h"
-/************************* WRITE HANDLE *************************/
+static int (*check_for_specifiers(const char *format))(va_list)
+{
+unsigned int i;
+print_t p[] = {
+{"c", print_c},
+{"s", print_s},
+{"i", print_i},
+{"d", print_d},
+{"u", print_u},
+{"b", print_b},
+{"o", print_o},
+{"x", print_x},
+{"X", print_X},
+{"p", print_p},
+{"S", print_S},
+{"r", print_r},
+{"R", print_R},
+{NULL, NULL}
+};
+
+for (i = 0; p[i].t != NULL; i++)
+{
+if (*(p[i].t) == *format)
+{
+break;
+}
+}
+return (p[i].f);
+}
+
 /**
-* handle_write_char - Prints a string
-* @c: char types.
-* @buffer: Buffer array to handle print
-* @flags: Calculates active flags.
-* @width: get width.
-* @precision: precision specifier
-* @size: Size specifier
-**
-Return: Number of chars printed.
+* _printf - prints anything
+* @format: list of argument types passed to the function
+*
+* Return: number of characters printed
 */
-int handle_write_char(char c, char buffer[],
-int flags, int width, int precision, int size)
-{ /* char is stored at left and paddind at buffer's right */
-int i = 0;
-char padd = ' ';
 int _printf(const char *format, ...)
 {
-int i, printed = 0, printed_chars = 0;
-int flags, width, precision, size, buff_ind = 0;
-va_list list;
-char buffer[BUFF_SIZE];
+unsigned int i = 0, count = 0;
+va_list valist;
+int (*f)(va_list);
+
 if (format == NULL)
 return (-1);
-va_start(list, format);
-for (i = 0; format && format[i] != '\0'; i++)
+va_start(valist, format);
+while (format[i])
 {
-if (format[i] != '%')
+for (; format[i] != '%' && format[i]; i++)
 {
-buffer[buff_ind++] = format[i];
-if (buff_ind == BUFF_SIZE)
-print_buffer(buffer, &buff_ind);
-/* write(1, &format[i], 1);*/
-printed_chars++;
+_putchar(format[i]);
+count++;
 }
-else
+if (!format[i])
+return (count);
+f = check_for_specifiers(&format[i + 1]);
+if (f != NULL)
 {
-print_buffer(buffer, &buff_ind);
-#include "main.h"
-/************************* WRITE HANDLE *************************/
-/**
-* handle_write_char - Prints a string
-* @c: char types.
-* @buffer: Buffer array to handle print
-* @flags: Calculates active flags.
-* @width: get width.
-* @precision: precision specifier
-* @size: Size specifier
-**
-Return: Number of chars printed.
-*/
-int handle_write_char(char c, char buffer[],
-int flags, int width, int precision, int size)
-{ /* char is stored at left and paddind at buffer's right */
-int i = 0;
-char padd = ' ';
-flags = get_flags(format, &i);
-width = get_width(format, &i, list);
-precision = get_precision(format, &i, list);
-size = get_size(format, &i);
-++i;
-printed = handle_print(format, &i, list, buffer,
-flags, width, precision, size);
-if (printed == -1)
+count += f(valist);
+i += 2;
+continue;
+}
+if (!format[i + 1])
 return (-1);
-printed_chars += printed;
+_putchar(format[i]);
+count++;
+if (format[i + 1] == '%')
+i += 2;
+else
+i++;
 }
+va_end(valist);
+return (count);
 }
-print_buffer(buffer, &buff_ind);
-va_end(list);
-return (printed_chars);
-}
-/**
-* print_buffer - Prints the contents of the buffer if it exist
-* @buffer: Array of chars
-* @buff_ind: Index at which to add next char, represents the length.
-*/
-#include "main.h"
-/************************* WRITE HANDLE *************************/
-/**
-* handle_write_char - Prints a string
-* @c: char types.
-* @buffer: Buffer array to handle print
-* @flags: Calculates active flags.
-* @width: get width.
-* @precision: precision specifier
-* @size: Size specifier
-**
-Return: Number of chars printed.
-*/
-int handle_write_char(char c, char buffer[],
-int flags, int width, int precision, int size)
-{ /* char is stored at left and paddind at buffer's right */
-int i = 0;
-char padd = ' ';
-void print_buffer(char buffer[], int *buff_ind)
-{
-if (*buff_ind > 0)
-write(1, &buffer[0], *buff_ind);
-*buff_ind = 0;
-}
-#include "main.h"
-/************************* WRITE HANDLE *************************/
-/**
-* handle_write_char - Prints a string
-* @c: char types.
-* @buffer: Buffer array to handle print
-* @flags: Calculates active flags.
-* @width: get width.
-* @precision: precision specifier
-* @size: Size specifier
-**
-Return: Number of chars printed.
-*/
-int handle_write_char(char c, char buffer[],
-int flags, int width, int precision, int size)
-{ /* char is stored at left and paddind at buffer's right */
-int i = 0;
-char padd = ' ';
+
